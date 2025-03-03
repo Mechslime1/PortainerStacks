@@ -1,0 +1,19 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - 9443:9443
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy-net
+    restart: unless-stopped
+
+volumes:
+  data:
+
+networks:
+  proxy-net:
+    external: true

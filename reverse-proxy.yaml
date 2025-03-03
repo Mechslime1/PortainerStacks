@@ -1,0 +1,30 @@
+services:
+  reverse-proxy:
+    image: nginx:1.27
+    container_name: proxy
+    volumes:
+      - type: bind
+        source: /etc/nginx/
+        target: /etc/nginx/
+        read_only: true
+        
+      - type: bind
+        source: /etc/letsencrypt/
+        target: /etc/letsencrypt/
+        read_only: true
+
+      - type: bind
+        source: /var/www/
+        target: /var/www/
+        read_only: true
+    
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true
+      

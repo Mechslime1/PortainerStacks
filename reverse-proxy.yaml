@@ -6,23 +6,21 @@ services:
       - type: bind
         source: /etc/nginx/
         target: /etc/nginx/
-        read_only: true
-        
+        read_only: true        
       - type: bind
         source: /etc/letsencrypt/
         target: /etc/letsencrypt/
         read_only: true
-
       - type: bind
         source: /var/www/
         target: /var/www/
         read_only: true
-    
     ports:
       - 80:80
       - 443:443
     networks:
       - proxy-net
+    restart: unless-stopped
 
 networks:
   proxy-net:
